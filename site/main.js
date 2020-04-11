@@ -1,5 +1,12 @@
 var map = L.map('map').setView([47.2692, 11.4041], 8);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: 'Showing flights from <span id="dateTile"></span>',
+}).addTo(map);
+
+$('#datePicker').change(() => {
+    var date = new Date($('#datePicker').val());
+    $('#dateTile').text('').append([date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/'));
+});
 
 var xmlHttp;
 
