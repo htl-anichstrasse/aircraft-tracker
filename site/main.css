@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Doppio+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
-body {
-    height: 100%;
-    background-color: #222222;
-}
-
 #map {
     height: 400px;
     width: 600px;
@@ -15,14 +10,17 @@ body {
 #title {
     font-size: 6.8em;
     font-family: 'Averia Serif Libre', cursive;
+    color: white;
 }
 
 .heading {
     font-family: 'Doppio One', sans-serif;
     font-size: 40px;
+    color: white
 }
 
-#description {
+.paragraph {
     font-family: 'Work Sans', sans-serif;
     font-size: 20px;
+    color: white;
 }
