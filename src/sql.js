@@ -16,13 +16,29 @@ class MySQL {
         this.con.connect((err) => {
             if (err) throw err;
             console.log('Successfully connected to MySQL database');
-            callback();
+            callback(this);
         });
     }
 
-    getAllData() {
+    /**
+     * Gets aircraft data from the database
+     * 
+     * @param la1 Latitude of Corner1
+     * @param lo1 Longtitude of Corner1
+     * @param la2 Latitude of Corner2
+     * @param lo2 Longtitude of Corner2
+     */
+    getData(lat1, lon1, lat2, lon2, time) {
+        const minLat = Math.min(lat1, lat2);
+        const maxLat = Math.max(lat1, lat2);
+        const minLon = Math.min(lon1, lon2);
+        const maxLon = Math.max(lon1, lon2);
+        time = time / 1000;
+        const timeNext = time + 86400;
         return new Promise((resolve, reject) => {
-            this.con.query('SELECT * FROM dump1090data;', (err, result, fields) => {
+            this.con.query('SELECT flightnr, lat, lon FROM dump1090data WHERE lat BETWEEN ? AND ? AND lon BETWEEN ? AND ? AND seentime BETWEEN ? AND ? GROUP BY flightnr;', 
+            [minLat, maxLat, minLon, maxLon, time, timeNext], 
+            (err, result, fields) => {
                 if (err) reject(err);
                 resolve(result);
             });

@@ -2,16 +2,15 @@ const express = require('express');
 
 class API {
     server;
+    mysql;
 
-    constructor() {
+    constructor(mysql) {
         this.server = express();
+        this.mysql = mysql;
 
         // register endpoints
         this.server.get('/', (req, res) => this.getRoot(req, res));
-        this.server.get('/data', (req, res) => this.getData(req, res));
-
-        // logging
-        this.server.use((req, res, next) => this.log(req, next));
+        this.server.get('/data/:latlonPair/:date', (req, res) => this.getData(req, res));
 
         // run server
         this.server.listen(process.env.PORT, () => {
@@ -19,23 +18,33 @@ class API {
         });
     }
 
-    log(req, next) {
-        console.log(`${req.ip} => ${req.method} ${req.path}`);
-        next();
-    }
-
     getRoot(req, res) {
         return res.status(403).end();
     }
 
     getData(req, res) {
-        // todo: access mysql db
-        mysql.getAllData().then((result) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.send(result);
-        }).catch((err) => {
-            throw err;
-        });
+        console.log(`${req.ip} => ${req.method} ${req.path}`);
+        res.header('Access-Control-Allow-Origin', '*');
+        try {
+            var json = JSON.parse(req.params.latlonPair);
+            if (!(json.lat1 && json.lat2 && json.lon1 && json.lon2)) {
+                res.status('400').send({message: 'Invalid parameters'});
+                return;
+            }
+            var date = req.params.date;
+            if (!date) {
+                res.status('400').send({message: 'Invalid parameters'});
+                return;
+            }
+            this.mysql.getData(json.lat1, json.lon1, json.lat2, json.lon2, new Date(date).getTime()).then((result) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.status('200').send(result);
+            }).catch((err) => {
+                throw err;
+            });
+        } catch (err) {
+            res.status('400').send({message: 'Invalid JSON'});
+        }
     }
 }
 
