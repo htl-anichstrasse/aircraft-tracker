@@ -30,7 +30,7 @@ $('#resetOrientation').click(() => {
 var xmlHttp;
 
 map.on("moveend", () => {
-    const date = document.getElementById('day').value;
+    const date = document.getElementById('datePicker').value;
     const bound1 = map.getBounds().getNorthWest();
     const bound2 = map.getBounds().getSouthEast();
     console.log("Moved to: " + bound1 + " and " + bound2);
