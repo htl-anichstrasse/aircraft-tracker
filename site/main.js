@@ -24,7 +24,7 @@ $('#datePicker').change(() => {
  * upon clicking the 'Reset' anchor in the tile section, 
  */
 $('#resetOrientation').click(() => {
-    map.panTo([47.2692, 11.4041])
+    map.setView([47.2692, 11.4041], 8);
 })
 
 var xmlHttp;
