@@ -1,4 +1,6 @@
+const HOST_ADDRESS = "http://localhost:1234";
 const aircraftSize = 50;
+
 var map;
 var aircraftLayerGroup;
 var xmlHttp;
@@ -69,7 +71,7 @@ function updateMapElements() {
             console.log(response);
         }
     };
-    xmlHttp.open('GET', `http://localhost:1234/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
+    xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
     xmlHttp.send();
 }
 
