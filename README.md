@@ -28,7 +28,7 @@ Table structure
 touch .env
 ```
 
-Environment configuration using dotenv
+Environment configuration using [dotenv](https://www.npmjs.com/package/dotenv)
 
 | Variable | Description |
 |---|---|
@@ -52,3 +52,7 @@ npm run start
 ```
 
 Then fire up [site/index.html](site/index.html) in your web browser.
+
+## License
+
+Licensed under the MIT license. See [LICENSE](LICENSE) for more information.
