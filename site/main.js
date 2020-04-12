@@ -1,3 +1,4 @@
+const aircraftSize = 50;
 var map;
 var aircraftLayerGroup;
 var xmlHttp;
@@ -52,12 +53,30 @@ function updateMapElements() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
-                // TODO: Fix this
-                L.circle([response[i].lat, response[i].lon], {radius: 50}).addTo(aircraftLayerGroup);
+                let latlng = [response[i].lat, response[i].lon];
+                let layer = L.circle(latlng, {radius: aircraftSize});
+                layer.on("click", () => {
+                    L.popup().setLatLng(latlng)
+                    .setContent(`<p><b>Flight Number:</b> ${response[i].flightnr}<br/>
+                    <b>Squawk:</b> ${response[i].squawk}<br/>
+                    <b>Time:</b> ${formatTimestamp(response[i].seentime)}<br/>
+                    <b>Height:</b> ${response[i].height} m<br/>
+                    <b>Speed:</b> ${response[i].speed} km/h<br/>`)
+                    .openOn(map);
+                });
+                layer.addTo(aircraftLayerGroup);
             }
             console.log(response);
         }
     };
     xmlHttp.open('GET', `http://localhost:1234/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
     xmlHttp.send();
+}
+
+function formatTimestamp(unixTimestamp) {
+    let date = new Date(unixTimestamp * 1000); // convert to milliseconds
+    let hours = date.getHours();
+    let minutes = '0' + date.getMinutes();
+    let seconds = '0' + date.getSeconds();
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 }
