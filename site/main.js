@@ -12,7 +12,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 /**
- * Changes the tiles text to the currently selected date.
+ * Changes the tiles' text to the currently selected date.
  */
 $('#datePicker').change(() => {
     var date = new Date($('#datePicker').val());
@@ -21,7 +21,7 @@ $('#datePicker').change(() => {
 
 /**
  * Resets the orientation of the map to it's original position 
- * upon clicking the 'Reset' anchor in the tile section, 
+ * upon clicking the 'Reset' anchor in the tile section.
  */
 $('#resetOrientation').click(() => {
     map.panTo([47.2692, 11.4041])
