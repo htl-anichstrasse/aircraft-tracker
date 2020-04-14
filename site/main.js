@@ -56,20 +56,23 @@ function updateMapElements() {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
                 let latlng = [response[i].lat, response[i].lon];
-                let layer = L.circle(latlng, {radius: aircraftSize});
+                let layer = L.circle(latlng, { radius: aircraftSize });
                 layer.on("click", () => {
                     L.popup().setLatLng(latlng)
-                    .setContent(`<p><b>Flight Number:</b> ${response[i].flightnr}<br/>
+                        .setContent(`<p><b>Flight Number:</b> ${response[i].flightnr}<br/>
                     <b>Squawk:</b> ${response[i].squawk}<br/>
                     <b>Time:</b> ${formatTimestamp(response[i].seentime)}<br/>
                     <b>Height:</b> ${response[i].height} m<br/>
                     <b>Speed:</b> ${response[i].speed} km/h<br/>`)
-                    .openOn(map);
+                        .openOn(map);
                 });
                 layer.addTo(aircraftLayerGroup);
             }
             console.log(response);
         }
+    };
+    xmlHttp.onerror = function () {
+        alert(`Error: Cannot connect to server!`);
     };
     xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
     xmlHttp.send();
