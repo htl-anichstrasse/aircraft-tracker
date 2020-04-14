@@ -32,8 +32,13 @@ $(document).ready(() => {
  */
 function updateDate() {
     var date = new Date($('#datePicker').val());
-    $('#dateTile').text([date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/'));
-    updateMapElements();
+    if (date instanceof Date && !isNaN(date)) {
+        $('#dateTile').text([date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/'));
+        updateMapElements();
+    } else {
+        $('#datePicker').val('2019-01-14');
+        alert('Please enter a valid date!');
+    }
 }
 
 /**
