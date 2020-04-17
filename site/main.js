@@ -42,6 +42,15 @@ function updateDate() {
 }
 
 /**
+ * Creates a custom plane icon.
+ */
+var airplane_icon = L.icon({
+    iconUrl: 'https://image.flaticon.com/icons/svg/723/723955.svg',
+    iconSize: [12, 12],
+    iconAnchor: [6, -3],
+})
+
+/**
  * Updates visible elements on the map (i. e. aircraft)
  */
 function updateMapElements() {
@@ -61,7 +70,7 @@ function updateMapElements() {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
                 let latlng = [response[i].lat, response[i].lon];
-                let layer = L.circle(latlng, { radius: aircraftSize });
+                let layer = L.marker(latlng, {icon: airplane_icon});
                 layer.on("click", () => {
                     L.popup().setLatLng(latlng)
                         .setContent(`<p><b>Flight Number:</b> ${response[i].flightnr}<br/>
