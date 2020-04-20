@@ -29,13 +29,13 @@ class MySQL {
      * @param lo2 Longtitude of Corner2
      */
     getData(lat1, lon1, lat2, lon2, time) {
-        const minLat = Math.min(lat1, lat2);
-        const maxLat = Math.max(lat1, lat2);
-        const minLon = Math.min(lon1, lon2);
-        const maxLon = Math.max(lon1, lon2);
-        time = time / 1000;
-        const timeNext = time + 86400;
         return new Promise((resolve, reject) => {
+            const minLat = Math.min(lat1, lat2);
+            const maxLat = Math.max(lat1, lat2);
+            const minLon = Math.min(lon1, lon2);
+            const maxLon = Math.max(lon1, lon2);
+            time = time / 1000;
+            const timeNext = time + 86400;
             this.con.query(`SELECT flightnr, seentime, height, speed, squawk, lat, lon FROM ${process.env.MYSQL_TABLE_NAME} WHERE lat BETWEEN ? AND ? AND lon BETWEEN ? AND ? AND seentime BETWEEN ? AND ? GROUP BY flightnr;`, 
             [minLat, maxLat, minLon, maxLon, time, timeNext], 
             (err, result, fields) => {
