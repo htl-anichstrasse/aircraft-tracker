@@ -13,7 +13,7 @@ $(document).ready(() => {
 
     // Tile buttons at bottom right corner of the map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="dateTile"></span>',
+        attribution: '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="dateTile" style="font-weight: bold; padding-right: 10px;"></span>',
     }).addTo(map);
     $('#resetOrientation').click(() => {
         // Resets map position
