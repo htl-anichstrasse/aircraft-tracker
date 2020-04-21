@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "compilesass": "sass site/main.scss site/main.css"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.3"
+  },
+  "devDependencies": {
+    "sass": "^1.26.3"
   }
 }
