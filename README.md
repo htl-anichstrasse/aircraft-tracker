@@ -2,6 +2,16 @@
 
 This application visualizes the position of aircraft from a database by putting them on a world map.
 
+## Scripts
+
+### `npm run start`
+
+Starts nodemon for the backend server
+
+### `npm run compilesass`
+
+Compiles SASS into CSS for front end
+
 ## Installation
 
 ### 1. Clone this repository
