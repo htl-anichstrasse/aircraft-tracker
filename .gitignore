@@ -1,2 +1,4 @@
 node_modules
+site/main.css
+site/main.css.map
 .env
