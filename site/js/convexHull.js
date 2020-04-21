@@ -21,7 +21,7 @@ function determineVector(pointA, pointB) {
 function generateConvexHull(points) {
     // Container for all vertex points of the convex hull.
     const VERTEX = []
-    
+
     // If there are less than 3 points, no convex hull can be created.
     // If there are exactly 3 points, those 3 points are simultaneously the only
     // vertex points of the convex hull.
@@ -33,7 +33,7 @@ function generateConvexHull(points) {
     points.sort((a, b) => a[0] - b[0] || a[1] - b[1])
     pointOnHull = points[0]
 
-    let index = 0 
+    let index = 0
     let endPoint
 
     do {
@@ -47,7 +47,7 @@ function generateConvexHull(points) {
             index += 1
             pointOnHull = endPoint
         }
-    } while (endPoint != VERTEX[0]) 
+    } while (endPoint != VERTEX[0])
 
     return VERTEX
 }

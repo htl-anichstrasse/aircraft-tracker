@@ -85,7 +85,7 @@ function updateMapElements() {
                 layer.addTo(aircraftLayerGroup);
                 */
             }
-            
+
             let boundaries = convexHull(points)
             var polygon = L.polygon(boundaries).addTo(map)
             console.log(response);

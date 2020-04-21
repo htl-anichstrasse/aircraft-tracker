@@ -36,12 +36,12 @@ class MySQL {
             const maxLon = Math.max(lon1, lon2);
             time = time / 1000;
             const timeNext = time + 86400;
-            this.con.query(`SELECT flightnr, seentime, height, speed, squawk, lat, lon FROM ${process.env.MYSQL_TABLE_NAME} WHERE lat BETWEEN ? AND ? AND lon BETWEEN ? AND ? AND seentime BETWEEN ? AND ? GROUP BY flightnr;`, 
-            [minLat, maxLat, minLon, maxLon, time, timeNext], 
-            (err, result, fields) => {
-                if (err) reject(err);
-                resolve(result);
-            });
+            this.con.query(`SELECT flightnr, seentime, height, speed, squawk, lat, lon FROM ${process.env.MYSQL_TABLE_NAME} WHERE lat BETWEEN ? AND ? AND lon BETWEEN ? AND ? AND seentime BETWEEN ? AND ? GROUP BY flightnr;`,
+                [minLat, maxLat, minLon, maxLon, time, timeNext],
+                (err, result, fields) => {
+                    if (err) reject(err);
+                    resolve(result);
+                });
         });
     }
 
@@ -55,11 +55,11 @@ class MySQL {
 
         return new Promise((resolve, reject) => {
             this.con.query(`SELECT lat, lon FROM ${process.env.MYSQL_TABLE_NAME} WHERE flightnr = ? AND lat BETWEEN ? AND ? AND lon BETWEEN ? AND ? AND seentime BETWEEN ? AND ?;`,
-            [flightnr, minLat, maxLat, minLon, maxLon, time, timeNext],
-            (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            })
+                [flightnr, minLat, maxLat, minLon, maxLon, time, timeNext],
+                (err, result) => {
+                    if (err) reject(err)
+                    resolve(result)
+                })
         })
     }
 }

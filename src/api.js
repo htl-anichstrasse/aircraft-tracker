@@ -28,12 +28,12 @@ class API {
         try {
             var json = JSON.parse(req.params.latlonPair);
             if (!(json.lat1 && json.lat2 && json.lon1 && json.lon2)) {
-                res.status('400').send({message: 'Invalid parameters'});
+                res.status('400').send({ message: 'Invalid parameters' });
                 return;
             }
             var date = req.params.date;
             if (!date) {
-                res.status('400').send({message: 'Invalid parameters'});
+                res.status('400').send({ message: 'Invalid parameters' });
                 return;
             }
             this.mysql.getData(json.lat1, json.lon1, json.lat2, json.lon2, new Date(date).getTime()).then((result) => {
@@ -43,7 +43,7 @@ class API {
                 throw err;
             });
         } catch (err) {
-            res.status('400').send({message: 'Invalid JSON'});
+            res.status('400').send({ message: 'Invalid JSON' });
         }
     }
 }
