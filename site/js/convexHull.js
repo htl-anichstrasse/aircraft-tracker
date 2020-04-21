@@ -1,56 +1,49 @@
 /**
- * @author Nicolaus Rossi
- * @since 2020-04-20
+ * Determines the vertex of the convex hull of a given set of points.
+ * @param {FloatArray} points Array which holds Lat-Lon coordinates.
  */
-
-/**
- * Determines the vector between to given points.
- * @param  {FloatArray} point_a coordinates of point A
- * @param  {FloatArray} point_b coordinates of point B
- */
-function determineVector(pointA, pointB) {
-    return [Math.abs(pointA[0] - pointB[0]), Math.abs(pointA[1] - pointB[1])]
-}
-
-/**
- * Given a set of points (x, y), determines all vertex points of it's
- * respective convex hull using the `Jarvis' March / Gift wrapping`
- * method.
- * @param  {FloatArray} set_of_points Integer Array that contains x- and y-coordinates of all points
- */
-function generateConvexHull(points) {
-    // Container for all vertex points of the convex hull.
-    const VERTEX = []
-
-    // If there are less than 3 points, no convex hull can be created.
-    // If there are exactly 3 points, those 3 points are simultaneously the only
-    // vertex points of the convex hull.
+function graham_scan(points) {
+    // If there are less than 3 points, no convex hull can be formed.
+    // If there are exactly 3 points, those 3 points are simultaneously 
+    // the vertex of the convex hull.
     if (points.length <= 3) {
         return points
     }
+    
+    // Find pivot
+    let pivot = points[0]
+    for (let i = 0; i < points.length; i++) {
+      if (points[i][1] < pivot[1] || (points[i][1] === pivot[1] && points[i][0] < pivot[0]))
+        pivot = points[i]
+    }
+  
+    // Attribute an angle to the points
+    for (let i = 0; i < points.length; i++) {
+      points[i]._graham_angle = Math.atan2(points[i][1] - pivot[1], points[i][0] - pivot[0])
+    }
+    points.sort(function(a, b){return a._graham_angle === b._graham_angle
+        ? a[0] - b[0]
+        : a._graham_angle - b._graham_angle
+    })
+  
+    // Adding points to the result if they "turn left"
+    let result = [points[0]]
+    len = 1
+    for (let i = 1; i < points.length; i++){
+      let a = result[len - 2]
+      let b = result[len - 1] 
+      let c = points[i]
 
-    // Sorts all points by their x- and y-coordinates ascendingly.
-    points.sort((a, b) => a[0] - b[0] || a[1] - b[1])
-    pointOnHull = points[0]
-
-    let index = 0
-    let endPoint
-
-    do {
-        VERTEX[index] = pointOnHull
-        endPoint = points[0]
-
-        for (let j = 0; j < points.length; j++) {
-            if (endPoint === pointOnHull || points[j][1] < this.determineVector(VERTEX[index], endPoint)[1]) {
-                endPoint = points[j]
-            }
-            index += 1
-            pointOnHull = endPoint
-        }
-    } while (endPoint != VERTEX[0])
-
-    return VERTEX
-}
+      while ((len === 1 && b[0] === c[0] && b[1] === c[1]) || (len > 1 && (b[0] - a[0]) * (c[1] - a[1]) <= (b[1] - a[1]) * (c[0] - a[0]))) {
+          len -= 1
+          b = a
+          a = result[len - 2]
+      }
+      result[len++] = c
+    }
+    result.length = len
+    return result;
+  }
 
 
 

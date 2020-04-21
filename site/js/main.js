@@ -86,8 +86,8 @@ function updateMapElements() {
                 */
             }
 
-            let boundaries = convexHull(points)
-            var polygon = L.polygon(boundaries).addTo(map)
+            let boundaries = graham_scan(points)
+            var polygon = L.polygon(boundaries).addTo(aircraftLayerGroup)
             console.log(response);
         }
     };
