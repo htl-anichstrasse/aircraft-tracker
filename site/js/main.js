@@ -1,5 +1,5 @@
 const HOST_ADDRESS = "http://localhost:1234";
-const aircraftSize = 50;
+const AIRCRAFT_SIZE = 50;
 
 var map;
 var aircraftLayerGroup;
@@ -9,7 +9,6 @@ $(document).ready(() => {
     // Create new interactive map focusing on Tyrol
     map = L.map('map').setView([47.2692, 11.4041], 8);
     aircraftLayerGroup = L.layerGroup().addTo(map);
-    // L.circle([47.2692, 11.4041], { radius: 5000 }).addTo(map); // Test
 
     // Tile buttons at bottom right corner of the map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -66,9 +65,12 @@ function updateMapElements() {
     }
     xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
+        let points = []
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
+                points.push([response[i].lat, response[i].lon])
+                /*
                 let latlng = [response[i].lat, response[i].lon];
                 let layer = L.marker(latlng, { icon: airplane_icon });
                 layer.on("click", () => {
@@ -81,7 +83,11 @@ function updateMapElements() {
                         .openOn(map);
                 });
                 layer.addTo(aircraftLayerGroup);
+                */
             }
+            
+            let boundaries = convexHull(points)
+            var polygon = L.polygon(boundaries).addTo(map)
             console.log(response);
         }
     };
