@@ -18,8 +18,8 @@ $(document).ready(() => {
         map.setView([47.2692, 11.4041], 8);
     });
 
-    map.on("moveend", () => updateMapElements());
-    $('#datePicker').change(() => updateDate());
+    $('#minDate').change(() => updateDate());
+    $('#maxDate').change(() => updateDate());
 
     // Initial load
     updateDate();
@@ -29,12 +29,12 @@ $(document).ready(() => {
  * Run when the date in the date picker updates
  */
 function updateDate() {
-    var date = new Date($('#datePicker').val());
+    var date = new Date($('#minDate').val());
     if (date instanceof Date && !isNaN(date)) {
         $('#dateTile').text([date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/'));
         updateMapElements();
     } else {
-        $('#datePicker').val('2019-01-14');
+        $('#minDate').val('2019-01-14');
         alert('Please enter a valid date!');
     }
 }
@@ -46,7 +46,8 @@ function updateMapElements() {
     // Clear vector layers
     aircraftLayerGroup.clearLayers();
 
-    const date = $('#datePicker')[0].value;
+    const minDate = $('#minDate')[0].value;
+    const maxDate = $('#maxDate')[0].value;
     const bound1 = map.getBounds().getNorthWest();
     const bound2 = map.getBounds().getSouthEast();
     console.log("Moved to: " + bound1 + " and " + bound2);
@@ -69,7 +70,7 @@ function updateMapElements() {
     xmlHttp.onerror = () => {
         alert(`Error: Cannot connect to server!`);
     };
-    xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
+    xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${minDate}/${maxDate}`);
     xmlHttp.send();
 }
 

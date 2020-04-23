@@ -10,7 +10,7 @@ class API {
 
         // register endpoints
         this.server.get('/', (req, res) => this.getRoot(req, res));
-        this.server.get('/data/:latlonPair/:date', (req, res) => this.getData(req, res));
+        this.server.get('/data/:latlonPair/:minDate/:maxDate', (req, res) => this.getData(req, res));
 
         // run server
         this.server.listen(process.env.PORT, () => {
@@ -31,12 +31,13 @@ class API {
                 res.status('400').send({ message: 'Invalid parameters' });
                 return;
             }
-            var date = req.params.date;
-            if (!date) {
+            var minDate = req.params.minDate;
+            var maxDate = req.params.maxDate
+            if (!minDate || !maxDate) {
                 res.status('400').send({ message: 'Invalid parameters' });
                 return;
             }
-            this.mysql.getData(json.lat1, json.lon1, json.lat2, json.lon2, new Date(date).getTime()).then((result) => {
+            this.mysql.getData(json.lat1, json.lon1, json.lat2, json.lon2, new Date(minDate).getTime(), new Date(maxDate).getTime()).then((result) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.status('200').send(result);
             }).catch((err) => {
