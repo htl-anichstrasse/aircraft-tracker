@@ -4,6 +4,8 @@ var map;
 var aircraftLayerGroup;
 var xmlHttp;
 
+let cache = []
+
 $(document).ready(() => {
     // Create new interactive map focusing on Tyrol
     map = L.map('map').setView([47.2692, 11.4041], 8);
@@ -11,38 +13,59 @@ $(document).ready(() => {
 
     // Tile buttons at bottom right corner of the map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="dateTile" style="font-weight: bold; padding-right: 10px;"></span>',
+        attribution: '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="minDateTile" style="font-weight: bold;"></span> to <span id="maxDateTile" style="font-weight: bold; padding-right: 10px;"></span>',
     }).addTo(map);
     $('#resetOrientation').click(() => {
         // Resets map position
         map.setView([47.2692, 11.4041], 8);
     });
 
-    $('#minDate').change(() => updateDate());
-    $('#maxDate').change(() => updateDate());
+    $('#minDate').change(() => { 
+        updateDates()
+        renderCoverageArea()
+    });
+    $('#maxDate').change(() => { 
+        updateDates()
+        renderCoverageArea()
+    });
+    map.on('moveend', () => drawCoverageArea(cache))
 
     // Initial load
-    updateDate();
+    updateDates();
 });
 
 /**
- * Run when the date in the date picker updates
+ * Run when the dates in the date input forms update.
  */
-function updateDate() {
-    var date = new Date($('#minDate').val());
-    if (date instanceof Date && !isNaN(date)) {
-        $('#dateTile').text([date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/'));
-        updateMapElements();
+updateDates = () => {
+    var minDate = new Date($('#minDate').val());
+    var maxDate = new Date($('#maxDate').val());
+    
+    if (((minDate instanceof Date && !isNaN(minDate)) && maxDate instanceof Date && !isNaN(maxDate)) && ($('#minDate').val() < $('#maxDate'))) {
+        $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
+        $('#maxDateTile').text([maxDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
+        renderCoverageArea();
     } else {
-        $('#minDate').val('2019-01-14');
-        alert('Please enter a valid date!');
+        $('#minDate').val('2018-11-14');
+        $('#maxDate').val('2018-12-14');
+        alert('Please enter a valid time period!');
     }
+}
+
+/**
+ * Calculates vertex points of a convex hull and
+ * draws a respective polygon onto the map.
+ * @param {FloatArray} points A set of Lat- and Lon-coordinates
+ */
+drawCoverageArea = (points) => {
+    let boundaries = grahamScan(points)
+    L.polygon(boundaries).addTo(aircraftLayerGroup)
 }
 
 /**
  * Updates visible elements on the map (i. e. aircraft)
  */
-function updateMapElements() {
+function renderCoverageArea() {
     // Clear vector layers
     aircraftLayerGroup.clearLayers();
 
@@ -61,9 +84,9 @@ function updateMapElements() {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
                 points.push([response[i].lat, response[i].lon])
+                cache.push([response[i].lat, response[i].lat])
             }
-            let boundaries = grahamScan(points)
-            L.polygon(boundaries).addTo(aircraftLayerGroup)
+            drawCoverageArea(points)
             console.log(response);
         }
     };
@@ -81,3 +104,4 @@ function formatTimestamp(unixTimestamp) {
     let seconds = '0' + date.getSeconds();
     return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 }
+
