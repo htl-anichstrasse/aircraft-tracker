@@ -62,11 +62,11 @@ function updateMapElements() {
                 points.push([response[i].lat, response[i].lon])
             }
             let boundaries = grahamScan(points)
-            var polygon = L.polygon(boundaries).addTo(aircraftLayerGroup)
+            L.polygon(boundaries).addTo(aircraftLayerGroup)
             console.log(response);
         }
     };
-    xmlHttp.onerror = function () {
+    xmlHttp.onerror = () => {
         alert(`Error: Cannot connect to server!`);
     };
     xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${date}`);
