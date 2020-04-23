@@ -1,5 +1,4 @@
 const HOST_ADDRESS = "http://localhost:1234";
-const AIRCRAFT_SIZE = 50;
 
 var map;
 var aircraftLayerGroup;
@@ -41,15 +40,6 @@ function updateDate() {
 }
 
 /**
- * Creates a custom plane icon.
- */
-const airplane_icon = L.icon({
-    iconUrl: 'https://image.flaticon.com/icons/svg/723/723955.svg',
-    iconSize: [12, 12],
-    iconAnchor: [6, -3],
-})
-
-/**
  * Updates visible elements on the map (i. e. aircraft)
  */
 function updateMapElements() {
@@ -70,22 +60,7 @@ function updateMapElements() {
             var response = JSON.parse(xmlHttp.responseText);
             for (let i = 0; i < response.length; i++) {
                 points.push([response[i].lat, response[i].lon])
-                /*
-                let latlng = [response[i].lat, response[i].lon];
-                let layer = L.marker(latlng, { icon: airplane_icon });
-                layer.on("click", () => {
-                    L.popup().setLatLng(latlng)
-                        .setContent(`<p><b>Flight Number:</b> ${response[i].flightnr}<br/>
-                    <b>Squawk:</b> ${response[i].squawk}<br/>
-                    <b>Time:</b> ${formatTimestamp(response[i].seentime)}<br/>
-                    <b>Height:</b> ${response[i].height} m<br/>
-                    <b>Speed:</b> ${response[i].speed} km/h<br/>`)
-                        .openOn(map);
-                });
-                layer.addTo(aircraftLayerGroup);
-                */
             }
-
             let boundaries = grahamScan(points)
             var polygon = L.polygon(boundaries).addTo(aircraftLayerGroup)
             console.log(response);
