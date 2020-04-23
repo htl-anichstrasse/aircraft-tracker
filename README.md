@@ -1,16 +1,16 @@
 # aircraft-tracker
 
-This application visualizes the position of aircraft from a database by putting them on a world map.
+This application visualises the coverage area of a single antenna receiving data from air traffic. 
 
 ## Scripts
 
-### `npm run start`
+### Nodemon 
 
-Starts nodemon for the backend server
+To start nodemon for the application's backend server simply execute `npm run start`.
 
-### `npm run compilesass`
+### Compilation of SASS
 
-Compiles SASS into CSS for front end
+In order to compile SASS into regular CSS either use `npm run compilesass` to process all changes at once or use `sass --watch main.scss main.css` to continuously watch for changes and process them directly.
 
 ## Installation
 
