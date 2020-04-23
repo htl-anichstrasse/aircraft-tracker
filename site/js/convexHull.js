@@ -20,13 +20,11 @@ function grahamScan(points) {
 
   // Attribute an angle to the points
   for (let i = 0; i < points.length; i++) {
-    points[i]._graham_angle = Math.atan2(points[i][1] - pivot[1], points[i][0] - pivot[0])
+    points[i].grahamAngle = Math.atan2(points[i][1] - pivot[1], points[i][0] - pivot[0])
   }
 
   points.sort((a, b) => {
-    return a._graham_angle === b._graham_angle ? 
-    a[0] - b[0] : 
-    a._graham_angle - b._graham_angle
+    return a.grahamAngle === b.grahamAngle ? a[0] - b[0] : a.grahamAngle - b.grahamAngle
   })
 
   // Adding points to the result if they "turn left"
