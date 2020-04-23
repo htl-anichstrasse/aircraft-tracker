@@ -2,7 +2,7 @@
  * Determines the vertex of the convex hull of a given set of points.
  * @param {FloatArray} points Array which holds Lat-Lon coordinates.
  */
-function graham_scan(points) {
+function grahamScan(points) {
     // If there are less than 3 points, no convex hull can be formed.
     // If there are exactly 3 points, those 3 points are simultaneously 
     // the vertex of the convex hull.
@@ -21,9 +21,9 @@ function graham_scan(points) {
     for (let i = 0; i < points.length; i++) {
       points[i]._graham_angle = Math.atan2(points[i][1] - pivot[1], points[i][0] - pivot[0])
     }
-    points.sort(function(a, b){return a._graham_angle === b._graham_angle
-        ? a[0] - b[0]
-        : a._graham_angle - b._graham_angle
+    points.sort(function(a, b){return a._graham_angle === b._graham_angle ? 
+      a[0] - b[0] : 
+      a._graham_angle - b._graham_angle
     })
   
     // Adding points to the result if they "turn left"
@@ -42,7 +42,7 @@ function graham_scan(points) {
       result[len++] = c
     }
     result.length = len
-    return result;
+    return result
   }
 
 

@@ -86,7 +86,7 @@ function updateMapElements() {
                 */
             }
 
-            let boundaries = graham_scan(points)
+            let boundaries = grahamScan(points)
             var polygon = L.polygon(boundaries).addTo(aircraftLayerGroup)
             console.log(response);
         }
