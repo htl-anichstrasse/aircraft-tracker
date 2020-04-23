@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Doppio+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
-body {
-    // background-image: url('https://images.pexels.com/photos/1302326/pexels-photo-1302326.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-    // background-image: url('https://images.pexels.com/photos/1575833/pexels-photo-1575833.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-}
-
 #map {
     height: 600px;
     width: 1110px;
@@ -47,8 +42,10 @@ body {
 
     &:hover {
         width: 180px;
-        border-color: aqua;
     }
 
-    &:focus {}
+    &:focus {
+        width: 180px;
+        background-color: gray;
+    }
 }

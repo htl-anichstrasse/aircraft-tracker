@@ -44,7 +44,3 @@ function grahamScan(points) {
     result.length = len
     return result
   }
-
-
-
-
