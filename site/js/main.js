@@ -20,22 +20,24 @@ $(document).ready(() => {
         map.setView([47.2692, 11.4041], 8);
     });
 
-    $('#minDate').change(() => { 
+    $('#minDate, #maxDate').change(() => { 
         updateDates()
         renderCoverageArea()
     });
-    $('#maxDate').change(() => { 
-        updateDates()
-        renderCoverageArea()
-    });
+   
     map.on('moveend', () => drawCoverageArea(cache))
 
     // Initial load
     updateDates();
 
     // Exports the current state of the map as PNG.
-    $('exportAsPNG').click(() => {
+    $('#exportAsPNG').click(() => {
         
+    })
+
+    // Toggles the currently active view mode of the map.
+    $('#toggleViewMode').click(() => {
+
     })
 });
 
