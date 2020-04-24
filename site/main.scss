@@ -4,22 +4,22 @@
 
 #map {
     height: 600px;
-    width: 1110px;
+    width: 1140px;
     margin-bottom: 50px;
     border-radius: 25px;
-
     box-shadow: 6px -6px gray;
 }
 
 #title {
-    font-size: 6.8em;
+    font-size: 50px;
     font-family: 'Averia Serif Libre', cursive;
     color: white;
+    text-decoration: underline;
 }
 
 .heading {
     font-family: 'Doppio One', sans-serif;
-    font-size: 40px;
+    font-size: 25px;
     color: white
 }
 
@@ -29,7 +29,7 @@
     color: white;
 }
 
-.datePicker {
+.date-picker {
     outline: none;
     border-width: 3px;
     border-radius: 25px;
@@ -41,11 +41,21 @@
     transition-duration: .4s;
 
     &:hover {
-        width: 180px;
+        width: 150px;
     }
 
     &:focus {
-        width: 180px;
+        width: 150px;
         background-color: gray;
     }
+}
+
+.input-heading {
+    font-size: 20px;
+    color: white;
+}
+
+.arrow-right {
+    color: white;
+    font-weight: bold;
 }
