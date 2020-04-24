@@ -4,6 +4,7 @@ var map;
 var aircraftLayerGroup;
 var xmlHttp;
 
+// Local cache for re-rendering the coverage area.
 let cache = []
 
 $(document).ready(() => {
@@ -25,17 +26,20 @@ $(document).ready(() => {
         renderCoverageArea()
     });
    
+    // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache))
 
     // Initial load
     updateDates();
 
     // Exports the current state of the map as PNG.
+    // TODO: Implement function.
     $('#exportAsPNG').click(() => {
         
     })
 
     // Toggles the currently active view mode of the map.
+    // TODO: Implement function
     $('#toggleViewMode').click(() => {
 
     })
@@ -70,7 +74,8 @@ drawCoverageArea = (points) => {
 }
 
 /**
- * Renders the coverage area.
+ * Renders the coverage area by requesting the respecting
+ * from the database and determining the hull vertex.
  */
 function renderCoverageArea() {
     // Clear vector layers
