@@ -32,6 +32,11 @@ $(document).ready(() => {
 
     // Initial load
     updateDates();
+
+    // Exports the current state of the map as PNG.
+    $('exportAsPNG').click(() => {
+        
+    })
 });
 
 /**
@@ -43,7 +48,7 @@ updateDates = () => {
     
     if (((minDate instanceof Date && !isNaN(minDate)) && maxDate instanceof Date && !isNaN(maxDate)) && ($('#minDate').val() < $('#maxDate'))) {
         $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
-        $('#maxDateTile').text([maxDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
+        $('#maxDateTile').text([maxDate.getDate(), maxDate.getMonth() + 1, maxDate.getFullYear()].join('/'));
         renderCoverageArea();
     } else {
         $('#minDate').val('2018-11-14');
@@ -63,7 +68,7 @@ drawCoverageArea = (points) => {
 }
 
 /**
- * Updates visible elements on the map (i. e. aircraft)
+ * Renders the coverage area.
  */
 function renderCoverageArea() {
     // Clear vector layers
