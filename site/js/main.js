@@ -4,6 +4,9 @@ var map;
 var aircraftLayerGroup;
 var xmlHttp;
 
+const MIN_DATE = "2017-12-30"
+const MAX_DATE = "2019-01-14"
+
 // Local cache for re-rendering the coverage area.
 let cache = []
 
@@ -39,12 +42,41 @@ $(document).ready(() => {
         
     })
 
+    $('#overDate').val("2018-11-20")
+  
+    let toggleState = true
+
     // Toggles the currently active view mode of the map.
     $('#toggleViewMode').click(() => {
-        $('.mode-toggle').toggle('fast')
-        $('#maxDate').prop('disabled', (_, val) => { return !val })
+        toggleState = !toggleState
+        $('.mode-toggle').toggle()
+        $('#maxDate').prop('disabled', (_, value) => { return !value })
+
+        if (!toggleState) {
+            let date = new Date(new Date($('#minDate').val()).getTime() + (30 * 24 * 60 * 60 * 1000))
+
+            if (formatDate(date) >= MAX_DATE) {
+                $('#overDate').val()
+            }
+            document.getElementById('overDate').valueAsDate = date
+
+            
+
+            date = new Date(new Date($('#minDate').val()).getTime() + (90 * 24 * 60 * 60 * 1000))
+            document.getElementById('maxDate').valueAsDate = date
+        } else {
+            $('#minDate').val("2018-11-14")
+            $('#maxDate').val("2018-12-14")
+        }
+
+        
     })
 });
+
+formatDate = (dateToFormat) => {
+    let date = new Date(dateToFormat)
+    return [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
+}
 
 /**
  * Run when the dates in the date input forms update.
