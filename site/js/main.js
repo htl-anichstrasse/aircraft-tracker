@@ -39,9 +39,8 @@ $(document).ready(() => {
     })
 
     // Toggles the currently active view mode of the map.
-    // TODO: Implement function
     $('#toggleViewMode').click(() => {
-
+        $('#manualTwoDateMode, #automaticThreeDateMode').toggle()
     })
 });
 
@@ -49,8 +48,8 @@ $(document).ready(() => {
  * Run when the dates in the date input forms update.
  */
 updateDates = () => {
-    var minDate = new Date($('#minDate').val());
-    var maxDate = new Date($('#maxDate').val());
+    let minDate = new Date($('#minDate').val());
+    let maxDate = new Date($('#maxDate').val());
     
     if (((minDate instanceof Date && !isNaN(minDate)) && maxDate instanceof Date && !isNaN(maxDate)) && ($('#minDate').val() < $('#maxDate').val())) {
         $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
