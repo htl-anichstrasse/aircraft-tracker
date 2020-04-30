@@ -139,7 +139,6 @@ function renderCoverageArea() {
         cache.push([response[i].lat, response[i].lat]);
       }
       drawCoverageArea(points);
-      console.log(response);
     }
   };
   xmlHttp.onerror = () => {
