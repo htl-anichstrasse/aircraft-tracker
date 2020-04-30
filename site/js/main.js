@@ -24,11 +24,11 @@ $(document).ready(() => {
         map.setView([47.2692, 11.4041], 8);
     });
 
-    $('#minDate, #maxDate').change(() => { 
+    $('#minDate, #maxDate').change(() => {
         updateDates()
         renderCoverageArea()
     });
-   
+
     // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache))
 
@@ -39,19 +39,16 @@ $(document).ready(() => {
     // Exports the current state of the map as PNG.
     // TODO: Implement function.
     $('#exportAsPNG').click(() => {
-        
+
     })
-
     $('#overDate').val("2018-11-20")
-  
-    let toggleState = true
 
+    let toggleState = true
     // Toggles the currently active view mode of the map.
     $('#toggleViewMode').click(() => {
         toggleState = !toggleState
         $('.mode-toggle').toggle()
         $('#maxDate').prop('disabled', (_, value) => { return !value })
-
         if (!toggleState) {
             let date = new Date(new Date($('#minDate').val()).getTime() + (30 * 24 * 60 * 60 * 1000))
 
@@ -59,18 +56,13 @@ $(document).ready(() => {
                 $('#overDate').val()
             }
             document.getElementById('overDate').valueAsDate = date
-
-            
-
             date = new Date(new Date($('#minDate').val()).getTime() + (90 * 24 * 60 * 60 * 1000))
             document.getElementById('maxDate').valueAsDate = date
         } else {
             $('#minDate').val("2018-11-14")
             $('#maxDate').val("2018-12-14")
         }
-
-        
-    })
+    });
 });
 
 formatDate = (dateToFormat) => {
@@ -84,7 +76,7 @@ formatDate = (dateToFormat) => {
 updateDates = () => {
     var minDate = new Date($('#minDate').val());
     var maxDate = new Date($('#maxDate').val());
-    
+
     if (((minDate instanceof Date && !isNaN(minDate)) && maxDate instanceof Date && !isNaN(maxDate)) && ($('#minDate').val() < $('#maxDate').val())) {
         $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
         $('#maxDateTile').text([maxDate.getDate(), maxDate.getMonth() + 1, maxDate.getFullYear()].join('/'));
