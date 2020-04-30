@@ -5,44 +5,56 @@
  */
 function grahamScan(points) {
   // If there are less than 3 points, no convex hull can be formed.
-  // If there are exactly 3 points, those 3 points are simultaneously 
+  // If there are exactly 3 points, those 3 points are simultaneously
   // the vertex of the convex hull.
   if (points.length <= 3) {
-    return points
+    return points;
   }
-  
+
   // Find pivot
-  let pivot = points[0]
+  let pivot = points[0];
   for (let i = 0; i < points.length; i++) {
-    if (points[i][1] < pivot[1] || (points[i][1] === pivot[1] && points[i][0] < pivot[0])) {
-      pivot = points[i]
+    if (
+      points[i][1] < pivot[1] ||
+      (points[i][1] === pivot[1] && points[i][0] < pivot[0])
+    ) {
+      pivot = points[i];
     }
   }
 
   // Attribute an angle to the points
   for (let i = 0; i < points.length; i++) {
-    points[i].grahamAngle = Math.atan2(points[i][1] - pivot[1], points[i][0] - pivot[0])
+    points[i].grahamAngle = Math.atan2(
+      points[i][1] - pivot[1],
+      points[i][0] - pivot[0]
+    );
   }
 
   points.sort((a, b) => {
-    return a.grahamAngle === b.grahamAngle ? a[0] - b[0] : a.grahamAngle - b.grahamAngle
-  })
+    return a.grahamAngle === b.grahamAngle
+      ? a[0] - b[0]
+      : a.grahamAngle - b.grahamAngle;
+  });
 
   // Adding points to the result if they "turn left"
-  let result = [points[0]]
-  len = 1
+  let result = [points[0]];
+  len = 1;
   for (let i = 1; i < points.length; i++) {
-    let a = result[len - 2]
-    let b = result[len - 1] 
-    let c = points[i]
+    let a = result[len - 2];
+    let b = result[len - 1];
+    let c = points[i];
 
-    while ((len === 1 && b[0] === c[0] && b[1] === c[1]) || (len > 1 && (b[0] - a[0]) * (c[1] - a[1]) <= (b[1] - a[1]) * (c[0] - a[0]))) {
-      len -= 1
-      b = a
-      a = result[len - 2]
+    while (
+      (len === 1 && b[0] === c[0] && b[1] === c[1]) ||
+      (len > 1 &&
+        (b[0] - a[0]) * (c[1] - a[1]) <= (b[1] - a[1]) * (c[0] - a[0]))
+    ) {
+      len -= 1;
+      b = a;
+      a = result[len - 2];
     }
-    result[len++] = c
+    result[len++] = c;
   }
-  result.length = len
-  return result
+  result.length = len;
+  return result;
 }

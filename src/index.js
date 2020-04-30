@@ -7,7 +7,7 @@ dotenv.config();
 
 console.log('Connecting to MySQL');
 new MySQL().connect((mysql) => {
-    // Wait for MySQL to connect before booting REST
-    console.log('Booting up REST API');
-    new API(mysql);
+  // Wait for MySQL to connect before booting REST
+  console.log('Booting up REST API');
+  new API(mysql);
 });
