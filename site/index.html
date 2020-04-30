@@ -25,6 +25,9 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
+    <!-- Leaflet Screenshotter -->
+    <script src="https://unpkg.com/leaflet-simple-map-screenshoter"></script>
+
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -54,7 +57,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 text-center">
                 <button id="toggleViewMode">
-                    <img src="https://image.flaticon.com/icons/svg/410/410562.svg"/>
+                    <img src="https://image.flaticon.com/icons/svg/410/410562.svg" />
                 </button>
             </div>
         </div>
@@ -66,8 +69,8 @@
         <div id="viewMode" class="row mt-1 justify-content-center">
             <div class="col-lg-2 text-center from-date">
                 <h3 class="paragraph">FROM</h3>
-                <input id="minDate" class="date-picker" type="date" id="day" name="trip-day" value="2018-11-14" min="2017-12-30"
-                    max="2019-01-14">
+                <input id="minDate" class="date-picker" type="date" id="day" name="trip-day" value="2018-11-14"
+                    min="2017-12-30" max="2019-01-14">
             </div>
             <div class="col-lg-1 text-center">
                 <div class="arrow-right">&#10230;</div>
@@ -81,8 +84,8 @@
             </div>
             <div class="col-lg-2 text-center to-date">
                 <h3 class="paragraph">TO</h3>
-                <input id="maxDate" class="date-picker" type="date" id="day" name="trip-day" value="2018-12-14" min="2017-12-30"
-                    max="2019-01-14">
+                <input id="maxDate" class="date-picker" type="date" id="day" name="trip-day" value="2018-12-14"
+                    min="2017-12-30" max="2019-01-14">
             </div>
         </div>
     </div>
@@ -93,14 +96,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-                <button id="exportAsPNG">EXPORT STATE AS PNG</button>
-            </div>
-        </div>
-    </div>
-    
+
     <script src='./js/main.js'></script>
     <script src='./js/convexHull.js'></script>
 </body>

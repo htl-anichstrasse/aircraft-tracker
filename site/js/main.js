@@ -14,6 +14,7 @@ $(document).ready(() => {
     // Create new interactive map focusing on Tyrol
     map = L.map('map').setView([47.2692, 11.4041], 8);
     aircraftLayerGroup = L.layerGroup().addTo(map);
+    L.simpleMapScreenshoter().addTo(map)
 
     // Tile buttons at bottom right corner of the map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -34,14 +35,8 @@ $(document).ready(() => {
 
     // Initial load
     updateDates();
-    $('.mode-toggle').toggle()
-
-    // Exports the current state of the map as PNG.
-    // TODO: Implement function.
-    $('#exportAsPNG').click(() => {
-
-    })
-    $('#overDate').val("2018-11-20")
+    $('.mode-toggle').toggle();
+    $('#overDate').val("2018-11-20");
 
     let toggleState = true
     // Toggles the currently active view mode of the map.
@@ -51,7 +46,6 @@ $(document).ready(() => {
         $('#maxDate').prop('disabled', (_, value) => { return !value })
         if (!toggleState) {
             let date = new Date(new Date($('#minDate').val()).getTime() + (30 * 24 * 60 * 60 * 1000))
-
             if (formatDate(date) >= MAX_DATE) {
                 $('#overDate').val()
             }
