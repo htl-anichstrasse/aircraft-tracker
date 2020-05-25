@@ -30,6 +30,7 @@ $(document).ready(() => {
         renderCoverageArea();
     });
     
+    // Creates a ranged slider for better input of date period.
     noUiSlider.create($('#dualSlider')[0], {
         start: [new Date('2018-11-14').getTime() / 1000, new Date('2018-12-14').getTime() / 1000],
         connect: true,
@@ -40,6 +41,11 @@ $(document).ready(() => {
             'max': new Date('2019-01-14').getTime() / 1000,
         }
     })
+
+    // Adds an event listener to the slider which
+    $('#dualSlider')[0].noUiSlider.on('change', (values, handle) => {
+        // TODO: Add implementation.
+    })      
 
     // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache));
