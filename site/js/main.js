@@ -18,8 +18,7 @@ $(document).ready(() => {
 
   // Tile buttons at bottom right corner of the map
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution:
-      '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="minDateTile" style="font-weight: bold;"></span> to <span id="maxDateTile" style="font-weight: bold; padding-right: 10px;"></span>',
+    attribution: '<a id="resetOrientation" href="#">Reset</a> | Showing flights from <span id="minDateTile" style="font-weight: bold;"></span> to <span id="maxDateTile" style="font-weight: bold; padding-right: 10px;"></span>',
   }).addTo(map);
   $('#resetOrientation').click(() => {
     // Resets map position
@@ -48,16 +47,14 @@ $(document).ready(() => {
       return !value;
     });
     if (!toggleState) {
-      let date = new Date(
-        new Date($('#minDate').val()).getTime() + 30 * 24 * 60 * 60 * 1000
-      );
+      let date = new Date(new Date($('#minDate').val()).getTime() + 30 * 24 * 60 * 60 * 1000);
+
       if (formatDate(date) >= MAX_DATE) {
         $('#overDate').val();
       }
+
       document.getElementById('overDate').valueAsDate = date;
-      date = new Date(
-        new Date($('#minDate').val()).getTime() + 90 * 24 * 60 * 60 * 1000
-      );
+      date = new Date(new Date($('#minDate').val()).getTime() + 90 * 24 * 60 * 60 * 1000);
       document.getElementById('maxDate').valueAsDate = date;
     } else {
       $('#minDate').val('2018-11-14');
@@ -78,23 +75,9 @@ updateDates = () => {
   var minDate = new Date($('#minDate').val());
   var maxDate = new Date($('#maxDate').val());
 
-  if (
-    minDate instanceof Date &&
-    !isNaN(minDate) &&
-    maxDate instanceof Date &&
-    !isNaN(maxDate) &&
-    $('#minDate').val() < $('#maxDate').val()
-  ) {
-    $('#minDateTile').text(
-      [minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join(
-        '/'
-      )
-    );
-    $('#maxDateTile').text(
-      [maxDate.getDate(), maxDate.getMonth() + 1, maxDate.getFullYear()].join(
-        '/'
-      )
-    );
+  if (minDate instanceof Date && !isNaN(minDate) && maxDate instanceof Date && !isNaN(maxDate) && $('#minDate').val() < $('#maxDate').val()) {
+    $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
+    $('#maxDateTile').text([maxDate.getDate(), maxDate.getMonth() + 1, maxDate.getFullYear()].join('/'));
     renderCoverageArea();
   } else {
     $('#minDate').val('2018-11-14');
@@ -144,10 +127,7 @@ function renderCoverageArea() {
   xmlHttp.onerror = () => {
     alert(`Error: Cannot connect to server!`);
   };
-  xmlHttp.open(
-    'GET',
-    `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${minDate}/${maxDate}`
-  );
+  xmlHttp.open('GET', `${HOST_ADDRESS}/data/{"lat1": ${bound1.lat}, "lon1": ${bound1.lng}, "lat2": ${bound2.lat}, "lon2": ${bound2.lng}}/${minDate}/${maxDate}`);
   xmlHttp.send();
 }
 
