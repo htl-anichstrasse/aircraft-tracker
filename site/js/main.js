@@ -11,7 +11,7 @@ const MAX_DATE = '2019-01-14';
 let cache = [];
 
 $(document).ready(() => {
-  // Create new interactive map focusing on Tyrol
+    // Create new interactive map focusing on Tyrol
     map = L.map('map').setView([47.2692, 11.4041], 8);
     aircraftLayerGroup = L.layerGroup().addTo(map);
     L.simpleMapScreenshoter().addTo(map);
@@ -29,6 +29,17 @@ $(document).ready(() => {
         updateDates();
         renderCoverageArea();
     });
+    
+    noUiSlider.create($('#dualSlider')[0], {
+        start: [new Date('2018-11-14').getTime() / 1000, new Date('2018-12-14').getTime() / 1000],
+        connect: true,
+        step: 86400,
+        orientation: 'horizontal',
+        range: {
+            'min': new Date('2017-12-30').getTime() / 1000,
+            'max': new Date('2019-01-14').getTime() / 1000,
+        }
+    })
 
     // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache));
