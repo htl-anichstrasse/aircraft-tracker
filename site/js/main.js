@@ -110,9 +110,6 @@ drawCoverageArea = (points) => {
  * from the database and determining the hull vertex.
  */
 function renderCoverageArea() {
-  // Clear vector layers
-    aircraftLayerGroup.clearLayers();
-
     const minDate = $('#dualSlider')[0].noUiSlider.get()[0];
     const maxDate = $('#dualSlider')[0].noUiSlider.get()[1];
     const bound1 = map.getBounds().getNorthWest();
@@ -130,6 +127,8 @@ function renderCoverageArea() {
                 points.push([response[i].lat, response[i].lon]);
                 cache.push([response[i].lat, response[i].lat]);
             }
+            // Clear vector layers
+            aircraftLayerGroup.clearLayers();
             drawCoverageArea(points);
         }
     };
