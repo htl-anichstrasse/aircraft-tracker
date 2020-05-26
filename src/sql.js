@@ -1,9 +1,11 @@
 const mysqldriver = require('mysql');
+const logger = require('log4js').getLogger('mysql');
 
 class MySQL {
   con;
 
   constructor() {
+    logger.info('Connecting to MySQL...');
     this.con = mysqldriver.createConnection({
       host: process.env.MYSQL_HOST,
       user: process.env.MYSQL_USER,
@@ -15,7 +17,7 @@ class MySQL {
   connect(callback) {
     this.con.connect((err) => {
       if (err) throw err;
-      console.log('Successfully connected to MySQL database');
+      logger.info('Successfully connected to MySQL!');
       callback(this);
     });
   }
