@@ -1,4 +1,6 @@
 const express = require('express');
+const log4js = require('log4js');
+const logger = log4js.getLogger('api');
 
 class API {
   server;
@@ -8,15 +10,20 @@ class API {
     this.server = express();
     this.mysql = mysql;
 
-    // register endpoints
+    this.server.use(log4js.connectLogger(logger, {
+      level: 'auto', statusRules: [
+        { from: 200, to: 499, level: 'debug' },
+        { from: 500, to: 599, level: 'error' }
+      ]
+    }));
+
     this.server.get('/', (req, res) => this.getRoot(req, res));
     this.server.get('/data/:latlonPair/:minDate/:maxDate', (req, res) =>
       this.getData(req, res)
     );
 
-    // run server
     this.server.listen(process.env.PORT, () => {
-      console.log(`REST API is now listening on port ${process.env.PORT}`);
+      logger.info(`REST API is now listening on port ${process.env.PORT}`);
     });
   }
 
@@ -25,7 +32,6 @@ class API {
   }
 
   getData(req, res) {
-    console.log(`${req.ip} => ${req.method} ${req.path}`);
     res.header('Access-Control-Allow-Origin', '*');
     try {
       var json = JSON.parse(req.params.latlonPair);
