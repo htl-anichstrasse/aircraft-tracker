@@ -25,10 +25,6 @@ $(document).ready(() => {
         map.setView([47.2692, 11.4041], 8);
     });
 
-    $('#minDate, #maxDate').change(() => {
-        renderCoverageArea();
-    });
-    
     // Creates a ranged slider for better input of date period.
     noUiSlider.create($('#dualSlider')[0], {
         start: [new Date('2018-11-14').getTime() / 1000, new Date('2018-12-14').getTime() / 1000],
@@ -51,9 +47,15 @@ $(document).ready(() => {
         }
     })
 
+    // Inital render upon loading the site.
+    renderCoverageArea()
+
     // Adds an event listener to the slider which
     $('#dualSlider')[0].noUiSlider.on('change', (value, handle) => {
         renderCoverageArea()
+        let data = $('#dualSlider')[0].noUiSlider.get()
+        $('#minDateTile').text(data[0])
+        $('#maxDateTile').text(data[1])
     })      
 
     // Re-renders the coverage area from the local point cache.
