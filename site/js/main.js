@@ -36,14 +36,24 @@ $(document).ready(() => {
         connect: true,
         step: 86400,
         orientation: 'horizontal',
+        tooltips: [true, true],
+        animate: true,
         range: {
             'min': new Date('2017-12-30').getTime() / 1000,
             'max': new Date('2019-01-14').getTime() / 1000,
+        },
+        format: {
+            to: (value) => {
+                return formatDate(new Date(value * 1000))
+            },
+            from: (value) => {
+                return value
+            }
         }
     })
 
     // Adds an event listener to the slider which
-    $('#dualSlider')[0].noUiSlider.on('change', (values, handle) => {
+    $('#dualSlider')[0].noUiSlider.on('change', (value, handle) => {
         // TODO: Add implementation.
     })      
 
