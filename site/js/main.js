@@ -27,7 +27,7 @@ $(document).ready(() => {
 
     // Creates a ranged slider for better input of date period.
     noUiSlider.create($('#dualSlider')[0], {
-        start: [new Date('2018-11-14').getTime() / 1000, new Date('2018-12-14').getTime() / 1000],
+        start: [new Date('2018-4-25').getTime() / 1000, new Date('2018-9-20').getTime() / 1000],
         connect: true,
         step: 86400,
         orientation: 'horizontal',
