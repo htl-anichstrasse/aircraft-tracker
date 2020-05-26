@@ -26,7 +26,6 @@ $(document).ready(() => {
     });
 
     $('#minDate, #maxDate').change(() => {
-        updateDates();
         renderCoverageArea();
     });
     
@@ -54,14 +53,13 @@ $(document).ready(() => {
 
     // Adds an event listener to the slider which
     $('#dualSlider')[0].noUiSlider.on('change', (value, handle) => {
-        // TODO: Add implementation.
+        renderCoverageArea()
     })      
 
     // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache));
 
     // Initial load
-    updateDates();
     $('.mode-toggle').toggle();
     $('#overDate').val('2018-11-20');
 
@@ -96,24 +94,6 @@ formatDate = (dateToFormat) => {
 };
 
 /**
- * Run when the dates in the date input forms update.
- */
-updateDates = () => {
-    var minDate = new Date($('#minDate').val());
-    var maxDate = new Date($('#maxDate').val());
-
-    if (minDate instanceof Date && !isNaN(minDate) && maxDate instanceof Date && !isNaN(maxDate) && $('#minDate').val() < $('#maxDate').val()) {
-        $('#minDateTile').text([minDate.getDate(), minDate.getMonth() + 1, minDate.getFullYear()].join('/'));
-        $('#maxDateTile').text([maxDate.getDate(), maxDate.getMonth() + 1, maxDate.getFullYear()].join('/'));
-        renderCoverageArea();
-    } else {
-        $('#minDate').val('2018-11-14');
-        $('#maxDate').val('2018-12-14');
-        alert('Please enter a valid time period!');
-    }
-};
-
-/**
  * Calculates vertex points of a convex hull and
  * draws a respective polygon onto the map.
  * @param {FloatArray} points A set of Lat- and Lon-coordinates
@@ -131,8 +111,8 @@ function renderCoverageArea() {
   // Clear vector layers
     aircraftLayerGroup.clearLayers();
 
-    const minDate = $('#minDate')[0].value;
-    const maxDate = $('#maxDate')[0].value;
+    const minDate = $('#dualSlider')[0].noUiSlider.get()[0];
+    const maxDate = $('#dualSlider')[0].noUiSlider.get()[1];
     const bound1 = map.getBounds().getNorthWest();
     const bound2 = map.getBounds().getSouthEast();
     console.log('Moved to: ' + bound1 + ' and ' + bound2);
