@@ -115,6 +115,8 @@ function renderCoverageArea() {
     const bound1 = map.getBounds().getNorthWest();
     const bound2 = map.getBounds().getSouthEast();
     console.log('Moved to: ' + bound1 + ' and ' + bound2);
+    var sheet = window.document.styleSheets[0];
+    sheet.insertRule('* { cursor: progress; }', sheet.cssRules.length);
     if (xmlHttp) {
         xmlHttp.abort(); // abort last request
     }
@@ -130,6 +132,7 @@ function renderCoverageArea() {
             // Clear vector layers
             aircraftLayerGroup.clearLayers();
             drawCoverageArea(points);
+            sheet.deleteRule(sheet.cssRules.length - 1);
         }
     };
     xmlHttp.onerror = () => {
