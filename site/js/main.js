@@ -64,30 +64,6 @@ $(document).ready(() => {
     // Initial load
     $('.mode-toggle').toggle();
     $('#overDate').val('2018-11-20');
-
-    let toggleState = true;
-    // Toggles the currently active view mode of the map.
-    $('#toggleViewMode').click(() => {
-        toggleState = !toggleState;
-        $('.mode-toggle').toggle();
-        $('#maxDate').prop('disabled', (_, value) => {
-            return !value;
-        });
-        if (!toggleState) {
-            let date = new Date(new Date($('#minDate').val()).getTime() + 30 * 24 * 60 * 60 * 1000);
-
-            if (formatDate(date) >= MAX_DATE) {
-                $('#overDate').val();
-            }
-
-            document.getElementById('overDate').valueAsDate = date;
-            date = new Date(new Date($('#minDate').val()).getTime() + 90 * 24 * 60 * 60 * 1000);
-            document.getElementById('maxDate').valueAsDate = date;
-        } else {
-            $('#minDate').val('2018-11-14');
-            $('#maxDate').val('2018-12-14');
-        }
-    });
 });
 
 formatDate = (dateToFormat) => {
