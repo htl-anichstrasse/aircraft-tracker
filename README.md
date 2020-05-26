@@ -10,7 +10,7 @@ To start nodemon for the application's backend server simply execute `npm run st
 
 ### Compilation of SASS
 
-In order to compile SASS into regular CSS either use `npm run compilesass` / `sass main.sass main.css` to process all changes at once or use `sass --watch main.scss main.css` to continuously watch for changes and process them directly.
+In order to compile SASS into regular CSS either use `npm run compilesass` / `sass main.sass main.css` to process all changes at once or use `sass --watch main.sass main.css` to continuously watch for changes and process them directly.
 
 ## Installation
 
