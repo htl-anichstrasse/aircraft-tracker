@@ -45,22 +45,19 @@ class API {
         res.status('400').send({ message: 'Invalid parameters' });
         return;
       }
-      this.mysql
-        .getData(
-          json.lat1,
-          json.lon1,
-          json.lat2,
-          json.lon2,
-          new Date(minDate).getTime(),
-          new Date(maxDate).getTime()
-        )
-        .then((result) => {
-          res.setHeader('Content-Type', 'application/json');
-          res.status('200').send(result);
-        })
-        .catch((err) => {
-          throw err;
-        });
+      this.mysql.getData(
+        json.lat1,
+        json.lon1,
+        json.lat2,
+        json.lon2,
+        new Date(minDate).getTime(),
+        new Date(maxDate).getTime()
+      ).then((result) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status('200').send(result);
+      }).catch((err) => {
+        throw err;
+      });
     } catch (err) {
       res.status('400').send({ message: 'Invalid JSON' });
     }
