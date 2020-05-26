@@ -38,12 +38,8 @@ $(document).ready(() => {
             'max': new Date('2019-01-14').getTime() / 1000,
         },
         format: {
-            to: (value) => {
-                return formatDate(new Date(value * 1000))
-            },
-            from: (value) => {
-                return value
-            }
+            to: (value) => { return formatDate(new Date(value * 1000)) },
+            from: (value) => { return value }
         }
     })
 
@@ -51,7 +47,7 @@ $(document).ready(() => {
     renderCoverageArea()
 
     // Adds an event listener to the slider which
-    $('#dualSlider')[0].noUiSlider.on('change', (value, handle) => {
+    $('#dualSlider')[0].noUiSlider.on('change', () => {
         renderCoverageArea()
         let data = $('#dualSlider')[0].noUiSlider.get()
         $('#minDateTile').text(data[0])
