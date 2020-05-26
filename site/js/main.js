@@ -85,7 +85,7 @@ drawCoverageArea = (points) => {
  * Renders the coverage area by requesting the respecting
  * from the database and determining the hull vertex.
  */
-function renderCoverageArea() {
+renderCoverageArea = () => {
     const minDate = $('#dualSlider')[0].noUiSlider.get()[0];
     const maxDate = $('#dualSlider')[0].noUiSlider.get()[1];
     const bound1 = map.getBounds().getNorthWest();
@@ -118,7 +118,7 @@ function renderCoverageArea() {
     xmlHttp.send();
 }
 
-function formatTimestamp(unixTimestamp) {
+formatTimestamp = (unixTimestamp) => {
     let date = new Date(unixTimestamp * 1000); // convert to milliseconds
     let hours = date.getHours();
     let minutes = '0' + date.getMinutes();
