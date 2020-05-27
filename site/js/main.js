@@ -38,7 +38,7 @@ $(document).ready(() => {
             'max': new Date('2019-01-14').getTime() / 1000,
         },
         format: {
-            to: (value) => { return formatDate(new Date(value * 1000)) },
+            to: (value) => { return formatDate((value * 1000)) },
             from: (value) => { return value }
         }
     })
