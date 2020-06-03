@@ -56,10 +56,6 @@ $(document).ready(() => {
 
     // Re-renders the coverage area from the local point cache.
     map.on('moveend', () => drawCoverageArea(cache));
-
-    // Initial load
-    $('.mode-toggle').toggle();
-    $('#overDate').val('2018-11-20');
 });
 
 formatDate = (dateToFormat) => {
