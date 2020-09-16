@@ -34,8 +34,8 @@ $(document).ready(() => {
         tooltips: [true, true],
         animate: true,
         range: {
-            'min': new Date('2017-12-30').getTime() / 1000,
-            'max': new Date('2019-01-14').getTime() / 1000,
+            'min': new Date(MIN_DATE).getTime() / 1000,
+            'max': new Date(MAX_DATE).getTime() / 1000,
         },
         format: {
             to: (value) => { return formatDate((value * 1000)) },
